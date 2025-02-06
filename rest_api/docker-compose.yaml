@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: personal_info_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_data:/rest_api/db
+      - ./dataset:/rest_api/dataset:ro # Bind mount for read-only dataset
+    environment:
+      - DATABASE_URL=sqlite:///./db/test.db
+    command: ["sh", "docker-start.sh"]
+
+volumes:
+  sqlite_data:
